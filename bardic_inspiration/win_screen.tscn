@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://ihl7udu0ma26"]
 
 [ext_resource type="Script" path="res://win_screen.gd" id="1_old5f"]
-[ext_resource type="Texture2D" uid="uid://wct7emscvul6" path="res://8-BIT Dungeon Adventure/RPG Maker/RPG Maker MV/tilesets/8bit_dungeon_adventure_C.png" id="2_3ehwf"]
+[ext_resource type="Texture2D" uid="uid://byixbco08v2o8" path="res://8-BIT Dungeon Adventure/RPG Maker/RPG Maker MV/tilesets/8bit_dungeon_adventure_C.png" id="2_3ehwf"]
 [ext_resource type="PackedScene" uid="uid://birvuf3mbonpy" path="res://Player.tscn" id="3_80r7m"]
-[ext_resource type="Texture2D" uid="uid://da2rovmj0x8vq" path="res://gold.png" id="4_yfe45"]
+[ext_resource type="Texture2D" uid="uid://bgv1ccghh52jf" path="res://gold.png" id="4_yfe45"]
 [ext_resource type="AudioStream" uid="uid://2vnx2vxtrc2c" path="res://yippee-147032.mp3" id="5_78eu0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ibovn"]

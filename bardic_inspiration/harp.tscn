@@ -1,10 +1,10 @@
 [gd_scene load_steps=19 format=3 uid="uid://bfi8cvyfhbx4r"]
 
-[ext_resource type="Texture2D" uid="uid://dgo4t3x0dseqr" path="res://HarpSpriteSheet.png" id="1_e67xa"]
+[ext_resource type="Texture2D" uid="uid://bshph735mcp5p" path="res://HarpSpriteSheet.png" id="1_e67xa"]
 [ext_resource type="Script" path="res://harp.gd" id="1_yn5r7"]
 [ext_resource type="PackedScene" uid="uid://bj3xytx5qubpo" path="res://health_bar_harp.tscn" id="3_k0fey"]
 [ext_resource type="AudioStream" uid="uid://bn8q11f5rgqkg" path="res://remembrance-harp-72958.mp3" id="4_mrsvf"]
-[ext_resource type="AudioStream" uid="uid://bjlqo1ntbeg38" path="res://ascending-harp-40490.mp3" id="5_gmmd4"]
+[ext_resource type="AudioStream" uid="uid://bmeff4w7tilep" path="res://ascending-harp-40490.mp3" id="5_gmmd4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1rojd"]
 radius = 23.0

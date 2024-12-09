@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://chest.gd" id="1_7phlj"]
 [ext_resource type="Texture2D" uid="uid://b34lbeworgqqf" path="res://ImprovedSpriteSheet.png" id="1_lbypv"]
-[ext_resource type="Texture2D" uid="uid://cbx2cyprda72k" path="res://Chest-20.png.png" id="2_aiyhy"]
-[ext_resource type="Texture2D" uid="uid://cnex012nwjqqm" path="res://Chest-21.png.png" id="3_4xr33"]
+[ext_resource type="Texture2D" uid="uid://dknd1qvi4nh8s" path="res://Chest-20.png.png" id="2_aiyhy"]
+[ext_resource type="Texture2D" uid="uid://brth62i0xeayu" path="res://Chest-21.png.png" id="3_4xr33"]
 [ext_resource type="Script" path="res://ElectricGuitar.gd" id="4_4d3ij"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mx0oi"]

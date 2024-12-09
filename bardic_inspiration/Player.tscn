@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Bard.gd" id="1_ous70"]
 [ext_resource type="Texture2D" uid="uid://b34lbeworgqqf" path="res://ImprovedSpriteSheet.png" id="2_6qba7"]
 [ext_resource type="PackedScene" uid="uid://l5gkerfpndep" path="res://health_bar.tscn" id="3_kh6jr"]
-[ext_resource type="AudioStream" uid="uid://dk24ycfodb3fg" path="res://dungeon-sound-effect-240254.mp3" id="4_a1s44"]
+[ext_resource type="AudioStream" uid="uid://dkj125w0qxdch" path="res://dungeon-sound-effect-240254.mp3" id="4_a1s44"]
 [ext_resource type="AudioStream" uid="uid://c1rg45uqi77qo" path="res://acousticguitar-c-chord-103782.mp3" id="5_llsi7"]
 [ext_resource type="AudioStream" uid="uid://bcdb6284yvqb6" path="res://knife-party-like-kick-105703.mp3" id="6_or5xl"]
 [ext_resource type="AudioStream" uid="uid://d3jgve5h72b1x" path="res://walking-sound-effect-272246.mp3" id="7_gxwve"]

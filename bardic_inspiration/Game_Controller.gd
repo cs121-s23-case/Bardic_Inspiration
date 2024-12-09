@@ -21,7 +21,6 @@ func chest_Open() -> void:
 	if ValChest == 1:
 		anim_player['parameters/conditions/open'] = true
 		
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c1qrah8tv136p"]
 
 [ext_resource type="Script" path="res://attack_sprite.gd" id="1_dkjnl"]
-[ext_resource type="Texture2D" uid="uid://raqd10yuh8gl" path="res://AttackSprite.png" id="1_ry2be"]
+[ext_resource type="Texture2D" uid="uid://xg6vccd84bp3" path="res://AttackSprite.png" id="1_ry2be"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xx16u"]
 

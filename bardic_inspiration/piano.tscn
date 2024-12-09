@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://piano.gd" id="1_45dsw"]
 [ext_resource type="Texture2D" uid="uid://h0g68uf5146l" path="res://PianoAAAA.png" id="1_s8sii"]
 [ext_resource type="PackedScene" uid="uid://cqqwx8fb2f6mg" path="res://health_bar_piano.tscn" id="3_npci1"]
-[ext_resource type="AudioStream" uid="uid://gcla6qosd6iu" path="res://dissonant-piano-stinger-45559.mp3" id="4_o368t"]
+[ext_resource type="AudioStream" uid="uid://b4x8vtumaedqs" path="res://dissonant-piano-stinger-45559.mp3" id="4_o368t"]
 [ext_resource type="AudioStream" uid="uid://ir8w31t5q5o8" path="res://piano-slam-97095.mp3" id="5_lxybs"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7grvt"]
