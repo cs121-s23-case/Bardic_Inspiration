@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxujx02ppdtw2"]
+
+[ext_resource type="Script" path="res://chest.gd" id="1_7phlj"]
+[ext_resource type="Texture2D" uid="uid://b34lbeworgqqf" path="res://ImprovedSpriteSheet.png" id="1_lbypv"]
+[ext_resource type="Texture2D" uid="uid://cbx2cyprda72k" path="res://Chest-20.png.png" id="2_aiyhy"]
+[ext_resource type="Texture2D" uid="uid://cnex012nwjqqm" path="res://Chest-21.png.png" id="3_4xr33"]
+[ext_resource type="Script" path="res://ElectricGuitar.gd" id="4_4d3ij"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mx0oi"]
+size = Vector2(69, 71)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ql361"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_aiyhy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4xr33")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s0p34"]
+radius = 12.5596
+
+[node name="Chest" type="Area2D"]
+script = ExtResource("1_7phlj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(449.5, 371.5)
+shape = SubResource("RectangleShape2D_mx0oi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(460, 341)
+scale = Vector2(2.41, 2.23)
+sprite_frames = SubResource("SpriteFrames_ql361")
+animation = &"open"
+
+[node name="ElectricGuitar" type="Area2D" parent="."]
+position = Vector2(460, 447)
+scale = Vector2(1.65, 1.52)
+script = ExtResource("4_4d3ij")
+
+[node name="ElectricGuitarSprite" type="Sprite2D" parent="ElectricGuitar"]
+visible = false
+position = Vector2(-23.0303, -1.31579)
+texture = ExtResource("1_lbypv")
+hframes = 5
+vframes = 6
+frame = 12
+
+[node name="Collision" type="CollisionShape2D" parent="ElectricGuitar"]
+visible = false
+position = Vector2(-23.0303, 1.97368)
+shape = SubResource("CircleShape2D_s0p34")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = 349.0
+offset_top = 320.0
+offset_right = 552.0
+offset_bottom = 343.0
+text = "Press E to switch weapons"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="ElectricGuitar" to="ElectricGuitar" method="_on_body_entered"]

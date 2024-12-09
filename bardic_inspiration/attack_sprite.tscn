@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1qrah8tv136p"]
+
+[ext_resource type="Script" path="res://attack_sprite.gd" id="1_dkjnl"]
+[ext_resource type="Texture2D" uid="uid://raqd10yuh8gl" path="res://AttackSprite.png" id="1_ry2be"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xx16u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bkkp7"]
+radius = 12.0416
+
+[node name="Node2D" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+gravity_scale = 0.0
+script = ExtResource("1_dkjnl")
+
+[node name="Area2D" type="Area2D" parent="RigidBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Area2D"]
+shape = SubResource("CircleShape2D_xx16u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_bkkp7")
+
+[node name="AttackSprite" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(0.999998, -7)
+scale = Vector2(1.15, 1.17)
+texture = ExtResource("1_ry2be")
+
+[connection signal="body_entered" from="RigidBody2D/Area2D" to="RigidBody2D" method="_on_area_2d_body_entered"]

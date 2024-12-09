@@ -1,0 +1,194 @@
+[gd_scene load_steps=19 format=3 uid="uid://cdnlpbfbbap7j"]
+
+[ext_resource type="Script" path="res://piano.gd" id="1_45dsw"]
+[ext_resource type="Texture2D" uid="uid://h0g68uf5146l" path="res://PianoAAAA.png" id="1_s8sii"]
+[ext_resource type="PackedScene" uid="uid://cqqwx8fb2f6mg" path="res://health_bar_piano.tscn" id="3_npci1"]
+[ext_resource type="AudioStream" uid="uid://gcla6qosd6iu" path="res://dissonant-piano-stinger-45559.mp3" id="4_o368t"]
+[ext_resource type="AudioStream" uid="uid://ir8w31t5q5o8" path="res://piano-slam-97095.mp3" id="5_lxybs"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7grvt"]
+radius = 21.9298
+height = 73.6842
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wboh0"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wnwhp"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a6qju"]
+advance_mode = 2
+advance_condition = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j2pmt"]
+advance_mode = 2
+advance_condition = &"attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_80wbf"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_1xi40"]
+states/attack/node = SubResource("AnimationNodeAnimation_wboh0")
+states/attack/position = Vector2(419, 164)
+states/walk/node = SubResource("AnimationNodeAnimation_wnwhp")
+states/walk/position = Vector2(419, 55)
+transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_a6qju"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_j2pmt"), "attack", "walk", SubResource("AnimationNodeStateMachineTransition_80wbf")]
+
+[sub_resource type="Animation" id="Animation_ra45d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../PianoAttackArea:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_kbliw"]
+resource_name = "attack"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5, 0.666667, 0.833333, 1.03333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8, 9, 10]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../PianoAttackArea:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, false]
+}
+
+[sub_resource type="Animation" id="Animation_krss2"]
+resource_name = "walk"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hh3wm"]
+_data = {
+"RESET": SubResource("Animation_ra45d"),
+"attack": SubResource("Animation_kbliw"),
+"walk": SubResource("Animation_krss2")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fb7xn"]
+size = Vector2(77.6976, 129.496)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wr5fi"]
+radius = 172.686
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Piano" type="CharacterBody2D" parent="."]
+position = Vector2(3, -1)
+scale = Vector2(0.695, 0.695)
+script = ExtResource("1_45dsw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Piano"]
+position = Vector2(0, 3)
+rotation = 1.5708
+scale = Vector2(2.28, 2.28)
+shape = SubResource("CapsuleShape2D_7grvt")
+
+[node name="Sprite2D" type="Sprite2D" parent="Piano"]
+position = Vector2(48, 26)
+scale = Vector2(5.465, 5.093)
+texture = ExtResource("1_s8sii")
+hframes = 3
+vframes = 4
+frame = 1
+
+[node name="AnimationTree" type="AnimationTree" parent="Piano"]
+root_node = NodePath(".")
+tree_root = SubResource("AnimationNodeStateMachine_1xi40")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/attack = false
+parameters/conditions/walk = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Piano"]
+root_node = NodePath("../AnimationTree")
+libraries = {
+"": SubResource("AnimationLibrary_hh3wm")
+}
+
+[node name="Timer" type="Timer" parent="Piano"]
+autostart = true
+
+[node name="pianoHitbox" type="Area2D" parent="Piano"]
+position = Vector2(3.05176e-05, 2.8777)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Piano/pianoHitbox"]
+position = Vector2(-1.43887, -2.87782)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_fb7xn")
+
+[node name="PianoAttackArea" type="Area2D" parent="Piano"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Piano/PianoAttackArea"]
+shape = SubResource("CircleShape2D_wr5fi")
+
+[node name="HealthBarPiano" parent="Piano" instance=ExtResource("3_npci1")]
+offset_left = -47.482
+offset_top = 66.187
+offset_right = 48.518
+offset_bottom = 93.187
+
+[node name="PianoSound1" type="AudioStreamPlayer2D" parent="Piano"]
+position = Vector2(-4.31655, 1.43885)
+scale = Vector2(1.43885, 1.43885)
+stream = ExtResource("4_o368t")
+max_distance = 7720.0
+
+[node name="PianoSound2" type="AudioStreamPlayer2D" parent="Piano"]
+position = Vector2(-4.31655, 1.43885)
+scale = Vector2(1.43885, 1.43885)
+stream = ExtResource("5_lxybs")
+max_distance = 8285.0
+
+[connection signal="timeout" from="Piano/Timer" to="Piano" method="_on_timer_timeout"]
+[connection signal="area_entered" from="Piano/pianoHitbox" to="Piano" method="_on_piano_hitbox_area_entered"]
+[connection signal="body_entered" from="Piano/PianoAttackArea" to="Piano" method="_on_piano_attack_area_body_entered"]
+[connection signal="body_exited" from="Piano/PianoAttackArea" to="Piano" method="_on_piano_attack_area_body_exited"]

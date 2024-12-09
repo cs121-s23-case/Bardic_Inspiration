@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqqwx8fb2f6mg"]
+
+[ext_resource type="Script" path="res://health_bar_piano.gd" id="1_j36yx"]
+
+[sub_resource type="Theme" id="Theme_58qse"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eu356"]
+bg_color = Color(0.933333, 0.0823529, 0.172549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1w3p"]
+bg_color = Color(0.196542, 0.719926, 0, 1)
+
+[node name="HealthBarPiano" type="ProgressBar"]
+offset_left = -48.0
+offset_top = 22.0
+offset_right = 48.0
+offset_bottom = 49.0
+theme = SubResource("Theme_58qse")
+theme_override_styles/background = SubResource("StyleBoxFlat_eu356")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b1w3p")
+max_value = 50.0
+value = 50.0
+show_percentage = false
+script = ExtResource("1_j36yx")

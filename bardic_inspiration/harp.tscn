@@ -1,0 +1,155 @@
+[gd_scene load_steps=19 format=3 uid="uid://bfi8cvyfhbx4r"]
+
+[ext_resource type="Texture2D" uid="uid://dgo4t3x0dseqr" path="res://HarpSpriteSheet.png" id="1_e67xa"]
+[ext_resource type="Script" path="res://harp.gd" id="1_yn5r7"]
+[ext_resource type="PackedScene" uid="uid://bj3xytx5qubpo" path="res://health_bar_harp.tscn" id="3_k0fey"]
+[ext_resource type="AudioStream" uid="uid://bn8q11f5rgqkg" path="res://remembrance-harp-72958.mp3" id="4_mrsvf"]
+[ext_resource type="AudioStream" uid="uid://bjlqo1ntbeg38" path="res://ascending-harp-40490.mp3" id="5_gmmd4"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1rojd"]
+radius = 23.0
+height = 68.0
+
+[sub_resource type="Animation" id="Animation_q4xfl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_731y3"]
+resource_name = "attack"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_fn7es"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4mtas"]
+_data = {
+"RESET": SubResource("Animation_q4xfl"),
+"attack": SubResource("Animation_731y3"),
+"walk": SubResource("Animation_fn7es")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l41rt"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h6fm4"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ty5ii"]
+advance_mode = 2
+advance_condition = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y0p7q"]
+advance_mode = 2
+advance_condition = &"attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ewf3f"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_f3wws"]
+states/attack/node = SubResource("AnimationNodeAnimation_l41rt")
+states/attack/position = Vector2(443, 179)
+states/walk/node = SubResource("AnimationNodeAnimation_h6fm4")
+states/walk/position = Vector2(443, 61)
+transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_ty5ii"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_y0p7q"), "attack", "walk", SubResource("AnimationNodeStateMachineTransition_ewf3f")]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1xcu0"]
+radius = 57.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w7tfd"]
+radius = 39.0
+height = 78.0
+
+[node name="Harp" type="CharacterBody2D"]
+script = ExtResource("1_yn5r7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-8, 5)
+shape = SubResource("CapsuleShape2D_1rojd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.665, 1.665)
+texture = ExtResource("1_e67xa")
+hframes = 3
+vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4mtas")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_f3wws")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/attack = false
+parameters/conditions/walk = false
+
+[node name="HarpAttackArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HarpAttackArea"]
+position = Vector2(-40, -1)
+shape = SubResource("CircleShape2D_1xcu0")
+
+[node name="HarpHitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HarpHitBox"]
+position = Vector2(-8, 7)
+shape = SubResource("CapsuleShape2D_w7tfd")
+
+[node name="HealthBarHarp" parent="." instance=ExtResource("3_k0fey")]
+offset_left = -27.0
+offset_top = 65.0
+offset_right = 15.0
+offset_bottom = 78.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HarpSound1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_mrsvf")
+max_distance = 7655.0
+
+[node name="HarpSound2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_gmmd4")
+max_distance = 7455.0
+
+[connection signal="area_entered" from="HarpAttackArea" to="." method="_on_harp_attack_area_area_entered"]
+[connection signal="body_entered" from="HarpAttackArea" to="." method="_on_harp_attack_area_body_entered"]
+[connection signal="body_exited" from="HarpAttackArea" to="." method="_on_harp_attack_area_body_exited"]
+[connection signal="area_entered" from="HarpHitBox" to="." method="_on_harp_hit_box_area_entered"]
+[connection signal="body_entered" from="HarpHitBox" to="." method="_on_harp_hit_box_body_entered"]

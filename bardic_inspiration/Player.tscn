@@ -1,0 +1,439 @@
+[gd_scene load_steps=56 format=3 uid="uid://birvuf3mbonpy"]
+
+[ext_resource type="Script" path="res://Bard.gd" id="1_ous70"]
+[ext_resource type="Texture2D" uid="uid://b34lbeworgqqf" path="res://ImprovedSpriteSheet.png" id="2_6qba7"]
+[ext_resource type="PackedScene" uid="uid://l5gkerfpndep" path="res://health_bar.tscn" id="3_kh6jr"]
+[ext_resource type="AudioStream" uid="uid://dk24ycfodb3fg" path="res://dungeon-sound-effect-240254.mp3" id="4_a1s44"]
+[ext_resource type="AudioStream" uid="uid://c1rg45uqi77qo" path="res://acousticguitar-c-chord-103782.mp3" id="5_llsi7"]
+[ext_resource type="AudioStream" uid="uid://bcdb6284yvqb6" path="res://knife-party-like-kick-105703.mp3" id="6_or5xl"]
+[ext_resource type="AudioStream" uid="uid://d3jgve5h72b1x" path="res://walking-sound-effect-272246.mp3" id="7_gxwve"]
+[ext_resource type="PackedScene" uid="uid://c1qrah8tv136p" path="res://attack_sprite.tscn" id="8_0obdm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yc81i"]
+radius = 25.6
+height = 136.0
+
+[sub_resource type="Animation" id="Animation_7lmtk"]
+resource_name = "Attack"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.266667, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("../AttackArea:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_eoyhs"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.466667, 0.733333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_mvn10"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../AttackArea:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_rlc3r"]
+resource_name = "Walking"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_fgqbr"]
+resource_name = "attackElectric"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.166667, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [23, 24, 25, 26]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../AttackArea:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_w67fi"]
+resource_name = "damaged"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [21]
+}
+
+[sub_resource type="Animation" id="Animation_df1lj"]
+resource_name = "damagedElectric"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [22]
+}
+
+[sub_resource type="Animation" id="Animation_feep5"]
+resource_name = "idleElectric"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.5, 0.766667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [13, 14, 15, 16]
+}
+
+[sub_resource type="Animation" id="Animation_r60an"]
+resource_name = "walkingElectric"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [17, 18]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_60rtm"]
+_data = {
+"Attack": SubResource("Animation_7lmtk"),
+"Idle": SubResource("Animation_eoyhs"),
+"RESET": SubResource("Animation_mvn10"),
+"Walking": SubResource("Animation_rlc3r"),
+"attackElectric": SubResource("Animation_fgqbr"),
+"damaged": SubResource("Animation_w67fi"),
+"damagedElectric": SubResource("Animation_df1lj"),
+"idleElectric": SubResource("Animation_feep5"),
+"walkingElectric": SubResource("Animation_r60an")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ln5os"]
+animation = &"Attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6px1k"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_avsxg"]
+animation = &"Walking"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_unocv"]
+animation = &"attackElectric"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g4jkx"]
+animation = &"damaged"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_td7sx"]
+animation = &"damagedElectric"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hgpap"]
+animation = &"idleElectric"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3d7yk"]
+animation = &"walkingElectric"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n3db7"]
+advance_mode = 2
+advance_condition = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v3reo"]
+advance_mode = 2
+advance_condition = &"attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_02cyd"]
+advance_mode = 2
+advance_condition = &"attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p28b8"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8qn1t"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_unfpr"]
+advance_mode = 2
+advance_condition = &"idleElectric"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vsobr"]
+advance_mode = 2
+advance_condition = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mo215"]
+advance_mode = 2
+advance_condition = &"idleElectric"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4vbjv"]
+advance_mode = 2
+advance_condition = &"walkingElectric"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_csbit"]
+advance_mode = 2
+advance_condition = &"idleElectric"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6vbct"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gxx2i"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yfdit"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hn7vp"]
+advance_mode = 2
+advance_condition = &"walkingElectric"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nfg5t"]
+advance_mode = 2
+advance_condition = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e6h81"]
+advance_mode = 2
+advance_condition = &"walkingElectric"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pddby"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5lyou"]
+advance_mode = 2
+advance_condition = &"damagedElectric"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h4tdr"]
+advance_mode = 2
+advance_condition = &"damagedElectric"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_oauab"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t73ei"]
+advance_mode = 2
+advance_condition = &"damaged"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g5hlu"]
+advance_mode = 2
+advance_condition = &"damaged"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4ouee"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tc0df"]
+advance_mode = 2
+advance_condition = &"attackElectric"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qrqcf"]
+advance_mode = 2
+advance_condition = &"attackElectric"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5gopi"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"walk"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_r71ck"]
+states/Attack/node = SubResource("AnimationNodeAnimation_ln5os")
+states/Attack/position = Vector2(529.016, 82)
+states/Idle/node = SubResource("AnimationNodeAnimation_6px1k")
+states/Idle/position = Vector2(338, 158)
+states/Start/position = Vector2(121, 117)
+states/Walking/node = SubResource("AnimationNodeAnimation_avsxg")
+states/Walking/position = Vector2(681, 169)
+states/attackElectric/node = SubResource("AnimationNodeAnimation_unocv")
+states/attackElectric/position = Vector2(506.016, 433.961)
+states/damaged/node = SubResource("AnimationNodeAnimation_g4jkx")
+states/damaged/position = Vector2(168.016, 222.961)
+states/damagedElectric/node = SubResource("AnimationNodeAnimation_td7sx")
+states/damagedElectric/position = Vector2(168.016, 426.961)
+states/idleElectric/node = SubResource("AnimationNodeAnimation_hgpap")
+states/idleElectric/position = Vector2(332.016, 314.961)
+states/walkingElectric/node = SubResource("AnimationNodeAnimation_3d7yk")
+states/walkingElectric/position = Vector2(690.016, 314.961)
+transitions = ["Idle", "Walking", SubResource("AnimationNodeStateMachineTransition_n3db7"), "Walking", "Attack", SubResource("AnimationNodeStateMachineTransition_v3reo"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_02cyd"), "Walking", "Idle", SubResource("AnimationNodeStateMachineTransition_p28b8"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_8qn1t"), "Idle", "idleElectric", SubResource("AnimationNodeStateMachineTransition_unfpr"), "idleElectric", "Walking", SubResource("AnimationNodeStateMachineTransition_vsobr"), "Walking", "idleElectric", SubResource("AnimationNodeStateMachineTransition_mo215"), "idleElectric", "walkingElectric", SubResource("AnimationNodeStateMachineTransition_4vbjv"), "walkingElectric", "idleElectric", SubResource("AnimationNodeStateMachineTransition_csbit"), "idleElectric", "Idle", SubResource("AnimationNodeStateMachineTransition_6vbct"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_gxx2i"), "walkingElectric", "Idle", SubResource("AnimationNodeStateMachineTransition_yfdit"), "Idle", "walkingElectric", SubResource("AnimationNodeStateMachineTransition_hn7vp"), "walkingElectric", "Walking", SubResource("AnimationNodeStateMachineTransition_nfg5t"), "Walking", "walkingElectric", SubResource("AnimationNodeStateMachineTransition_e6h81"), "damagedElectric", "idleElectric", SubResource("AnimationNodeStateMachineTransition_pddby"), "idleElectric", "damagedElectric", SubResource("AnimationNodeStateMachineTransition_5lyou"), "walkingElectric", "damagedElectric", SubResource("AnimationNodeStateMachineTransition_h4tdr"), "damaged", "Idle", SubResource("AnimationNodeStateMachineTransition_oauab"), "Walking", "damaged", SubResource("AnimationNodeStateMachineTransition_t73ei"), "Idle", "damaged", SubResource("AnimationNodeStateMachineTransition_g5hlu"), "attackElectric", "idleElectric", SubResource("AnimationNodeStateMachineTransition_4ouee"), "walkingElectric", "attackElectric", SubResource("AnimationNodeStateMachineTransition_tc0df"), "idleElectric", "attackElectric", SubResource("AnimationNodeStateMachineTransition_qrqcf"), "Attack", "Walking", SubResource("AnimationNodeStateMachineTransition_5gopi")]
+graph_offset = Vector2(-375.984, 2.76701)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1f6dm"]
+radius = 11.0
+height = 60.0
+
+[node name="Bard" type="CharacterBody2D"]
+position = Vector2(1, 1)
+script = ExtResource("1_ous70")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.00003, -1.00002)
+scale = Vector2(0.625, 0.625)
+shape = SubResource("CapsuleShape2D_yc81i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(11, -23)
+scale = Vector2(1.38, 1.348)
+texture = ExtResource("2_6qba7")
+hframes = 5
+vframes = 6
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimationTree")
+libraries = {
+"": SubResource("AnimationLibrary_60rtm")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath(".")
+tree_root = SubResource("AnimationNodeStateMachine_r71ck")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/attack = false
+parameters/conditions/attackElectric = false
+parameters/conditions/damaged = false
+parameters/conditions/damagedElectric = false
+parameters/conditions/idle = false
+parameters/conditions/idleElectric = false
+parameters/conditions/walk = false
+parameters/conditions/walkingElectric = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-3, 0)
+zoom = Vector2(1.461, 1.461)
+
+[node name="AttackArea" type="Area2D" parent="."]
+position = Vector2(-1, -1)
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(58, -9)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_1f6dm")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_kh6jr")]
+offset_left = -24.0
+offset_top = 47.0
+offset_right = 23.0
+offset_bottom = 61.0
+
+[node name="CaveSounds" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_a1s44")
+autoplay = true
+max_distance = 8145.0
+
+[node name="GuitarSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_llsi7")
+max_distance = 8250.0
+
+[node name="ElectricSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_or5xl")
+max_distance = 8310.0
+
+[node name="WalkingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_gxwve")
+max_distance = 8190.0
+
+[node name="Attack" parent="." instance=ExtResource("8_0obdm")]
+position = Vector2(31, -6)
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
